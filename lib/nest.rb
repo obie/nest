@@ -21,7 +21,7 @@ class Nest < String
 
   def initialize(key, redis = Redis.current)
     key = key.to_redis_key if key.respond_to?(:to_redis_key)
-    super(key.to_redis_key)
+    super(key)
     @redis = redis
   end
 
