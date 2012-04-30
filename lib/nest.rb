@@ -20,11 +20,13 @@ class Nest < String
   attr :redis
 
   def initialize(key, redis = Redis.current)
-    super(key.to_s)
+    key = key.to_redis_key if key.respond_to?(:to_redis_key)
+    super(key.to_redis_key)
     @redis = redis
   end
 
   def [](key)
+    key = key.to_redis_key if key.respond_to?(:to_redis_key)
     self.class.new("#{self}:#{key}", redis)
   end
 
